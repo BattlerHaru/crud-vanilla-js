@@ -6,16 +6,16 @@ import {User} from "../models/user";
  * @returns {User}
  */
 export const localhostUserToModel = (localhostUser) => {
-  const {id, isActive, balance, avatar, first_name, last_name, gender} =
+  const {avatar, balance, first_name, gender, id, isActive, last_name} =
     localhostUser;
 
   return new User({
+    avatar,
+    balance,
+    firstName: first_name,
+    gender,
     id,
     isActive,
-    balance,
-    avatar,
-    firstName: first_name,
     lastName: last_name,
-    gender,
   });
 };
