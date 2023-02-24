@@ -56,11 +56,12 @@ export const renderModal = (element, callback) => {
     }
   });
 
-  form.addEventListener("submit", async () => {
+  form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     const formData = new FormData(form);
     const userLike = {...loadedUser};
+    const isActive = document.querySelector("#is-active").checked;
 
     for (const [key, value] of formData) {
       if (key === "balance") {
@@ -69,13 +70,19 @@ export const renderModal = (element, callback) => {
       }
 
       if (key === "isActive") {
-        userLike[key] = value === "on" ? true : false;
+        userLike[key] = true;
         continue;
       }
+
+      if (!isActive) {
+        userLike["isActive"] = false;
+      }
+
       userLike[key] = value;
     }
 
     await callback(userLike);
+    console.log(userLike);
 
     hideModal();
   });
